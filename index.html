@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nepali Style Pickle & Jam</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('images/background.webp');
+            background-size: cover;
+            background-position: center;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: rgba(255, 255, 255, 0.85);
+            margin: 100px auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #d9534f;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin: 15px 0;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #d9534f;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        button {
+            background-color: #d9534f;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #c9302c;
+        }
+
+        .social-links {
+            margin-top: 30px;
+        }
+
+        .social-links a {
+            color: #d9534f;
+            margin: 0 15px;
+            font-size: 1.5em;
+            text-decoration: none;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nepali Style Pickle & Jam</h1>
+        <p>A delicious twist of Himalayan flavors with the goodness of New Zealand Kiwi. Experience the harmony of Nepali culinary style and NZ Kiwi ingredients to create delightful culinary wonders.</p>
+        <p>We are excited to share our journey of culinary exploration. This project, from home to home, adds a touch of charm to your already beautiful dining table.</p>
+        
+        <form id="sampleForm">
+            <h2>Request a Free Sample</h2>
+            <input type="text" id="firstName" name="firstName" placeholder="Your First Name" required>
+            <input type="text" id="lastName" name="lastName" placeholder="Your Last Name" required>
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+            <textarea id="address" name="address" placeholder="Your Address" required></textarea>
+            <button type="submit">Send Sample Request</button>
+        </form>
+
+        <div class="social-links">
+            <a href="https://www.facebook.com/YourFacebookPage" target="_blank">Facebook</a>
+            <a href="#" id="shareBtn">Share</a>
+            <a href="whatsapp://send?text=Check%20out%20Nepali%20Style%20Pickle%20and%20Jam!">WhatsApp</a>
+        </div>
+
+        <div class="footer">
+            <p>Copyright © Nepali Style Project from Home by Durga.</p>
+        </div>
+    </div>
+
+    <script>
+        // Handle form submission
+        document.getElementById("sampleForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const formData = {
+                firstName: document.getElementById("firstName").value,
+                lastName: document.getElementById("lastName").value,
+                email: document.getElementById("email").value,
+                address: document.getElementById("address").value
+            };
+
+            // Send form data to Google Apps Script
+            fetch('https://script.google.com/macros/s/AKfycbwK3cQ3ebq-UCIwSEsHkwo5KXS8WQrFE3gD08sTfG3RRz1b3GyhPBV6vywleSg4fugD/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(formData)
+            }).then(response => {
+                alert('Sample request sent successfully!');
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+
+            // Send data to WhatsApp
+            const message = `New sample request:\nName: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\nAddress: ${formData.address}`;
+            window.open(`https://api.whatsapp.com/send?phone=+64277276110&text=${encodeURIComponent(message)}`);
+        });
+
+        // Share button functionality
+        document.getElementById("shareBtn").addEventListener("click", function() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Nepali Style Pickle & Jam',
+                    text: 'Check out Nepali Style Pickle and Jam!',
+                    url: window.location.href
+                }).catch(err => console.error(err));
+            } else {
+                alert("Your browser doesn't support the share feature.");
+            }
+        });
+    </script>
+</body>
+</html>
